@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PICTOMATE - Kalendar Temujanji Pintar</title>
+    <title>PICTOMATE - Smart TCA Bookmark & Digital Reminder</title>
     <!-- Google Fonts & Font Awesome Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -15,8 +15,9 @@
             --accent: #FF6B6B;
             --accent-light: #FFEBEB;
             --text-main: #2C3E50;
-            --bg-body: #F8FAFC;
+            --bg-body: #F4F7FA;
             --card-bg: #FFFFFF;
+            --success: #2ECC71;
         }
 
         * {
@@ -43,16 +44,15 @@
             border-radius: 24px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.05);
             padding: 24px;
-            overflow: hidden;
         }
 
-        /* Header Style */
-        .header {
+        /* App Header */
+        .app-header {
             text-align: center;
             margin-bottom: 24px;
         }
 
-        .logo-area {
+        .brand-badge {
             display: inline-flex;
             align-items: center;
             gap: 8px;
@@ -61,34 +61,65 @@
             padding: 8px 16px;
             border-radius: 20px;
             font-weight: 700;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             letter-spacing: 1px;
             margin-bottom: 12px;
         }
 
-        .header h1 {
-            font-size: 1.5rem;
+        .app-header h1 {
+            font-size: 1.6rem;
             font-weight: 700;
             color: var(--text-main);
         }
 
-        .header p {
+        .app-header p {
             font-size: 0.85rem;
             color: #7F8C8D;
             margin-top: 4px;
         }
 
-        /* Form Input */
+        /* Ecosystem Info / Promo Card */
+        .promo-card {
+            background: linear-gradient(135deg, #6C5CE7, #4A90E2);
+            color: white;
+            padding: 16px;
+            border-radius: 16px;
+            margin-bottom: 24px;
+            font-size: 0.85rem;
+            line-height: 1.4;
+            box-shadow: 0 4px 15px rgba(74, 144, 226, 0.2);
+        }
+
+        .promo-card h3 {
+            font-size: 1rem;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Section Title */
+        .section-title {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-main);
+        }
+
+        /* Form Styling */
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
 
         .form-group label {
             display: block;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 600;
-            margin-bottom: 8px;
-            color: var(--text-main);
+            margin-bottom: 6px;
+            color: #566573;
         }
 
         .input-wrapper {
@@ -108,19 +139,21 @@
             padding: 12px 12px 12px 40px;
             border: 2px solid #E2E8F0;
             border-radius: 12px;
-            font-size: 1rem;
+            font-size: 0.95rem;
             color: var(--text-main);
             outline: none;
             transition: all 0.3s ease;
+            background: #FAFBFC;
         }
 
         .form-group input:focus, .form-group select:focus {
             border-color: var(--primary);
+            background: #FFF;
             box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.15);
         }
 
-        /* Button */
-        .btn-submit {
+        /* Buttons */
+        .btn-primary {
             width: 100%;
             background: var(--primary);
             color: white;
@@ -135,54 +168,78 @@
             align-items: center;
             gap: 8px;
             transition: background 0.3s ease;
+            margin-top: 8px;
         }
 
-        .btn-submit:hover {
+        .btn-primary:hover {
             background: #357ABD;
         }
 
-        /* Result Section */
-        .result-section {
-            display: none;
-            margin-top: 24px;
-            border-top: 2px dashed #E2E8F0;
-            padding-top: 24px;
-            animation: fadeIn 0.5s ease forwards;
+        .btn-google {
+            width: 100%;
+            background: #4285F4;
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.3s ease;
+            margin-top: 16px;
+            text-decoration: none;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+        .btn-google:hover {
+            background: #2C6CBF;
+        }
+
+        /* Calendar Result Part */
+        .calendar-result {
+            display: none;
+            margin-top: 24px;
+            background: #FFF;
+            border: 2px solid var(--primary-light);
+            border-radius: 16px;
+            padding: 16px;
+            animation: slideUp 0.4s ease forwards;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Mini Calendar Visual */
         .mini-calendar {
             background: var(--primary-light);
-            border-radius: 16px;
-            padding: 16px;
+            border-radius: 12px;
+            padding: 12px;
             text-align: center;
-            margin-bottom: 16px;
-            border: 1px solid rgba(74, 144, 226, 0.2);
+            margin-bottom: 12px;
         }
 
         .cal-month {
-            font-size: 1.1rem;
+            font-size: 0.95rem;
             font-weight: 700;
             color: var(--primary);
             text-transform: uppercase;
-            margin-bottom: 4px;
+            letter-spacing: 1px;
         }
 
         .cal-date {
-            font-size: 3rem;
+            font-size: 2.8rem;
             font-weight: 700;
             color: var(--text-main);
-            line-height: 1;
-            margin: 8px 0;
+            line-height: 1.1;
+            margin: 4px 0;
         }
 
         .cal-day {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 600;
             color: #566573;
         }
@@ -191,135 +248,194 @@
         .reminder-box {
             background: var(--accent-light);
             border-left: 4px solid var(--accent);
-            padding: 12px 16px;
+            padding: 12px;
             border-radius: 0 12px 12px 0;
             display: flex;
-            gap: 12px;
-            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 12px;
         }
 
         .reminder-box i {
             color: var(--accent);
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             margin-top: 2px;
         }
 
         .reminder-text h4 {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             color: #C0392B;
             font-weight: 700;
             margin-bottom: 2px;
         }
 
         .reminder-text p {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: #7B241C;
             line-height: 1.4;
         }
 
-        .footer-note {
+        /* App Footer */
+        .app-footer {
             text-align: center;
             font-size: 0.75rem;
-            color: #BDC3C7;
+            color: #A0AEC0;
             margin-top: 24px;
+            border-top: 1px solid #E2E8F0;
+            padding-top: 16px;
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <!-- Header -->
-    <div class="header">
-        <div class="logo-area">
-            <i class="fa-solid fa-bookmark"></i> PICTOMATE
+    <!-- App Header -->
+    <div class="app-header">
+        <div class="brand-badge">
+            <i class="fa-solid fa-bookmark"></i> PICTO MATE
         </div>
-        <h1>Temujanji Digital</h1>
-        <p>Sila masukkan maklumat kad TCA anak anda</p>
+        <h1>Digital Reminder Ecosystem</h1>
+        <p>Sistem Peringatan Rutin Temujanji Anak Umur 1.6 - 6 Tahun</p>
     </div>
 
-    <!-- Input Form -->
+    <!-- Ecosystem Intro Card -->
+    <div class="promo-card">
+        <h3><i class="fa-solid fa-circle-info"></i> Mengenai PICTO MATE</h3>
+        <p>Inovasi kad penanda (bookmark) pintar dan ekosistem digital untuk membantu ibu bapa mengingati serta menguruskan tarikh temujanji rutin Klinik Kesihatan (KKIA) dengan mudah.</p>
+    </div>
+
+    <!-- Main System Form -->
+    <div class="section-title">
+        <i class="fa-solid fa-pen-to-square" style="color: var(--primary);"></i>
+        <span>Maklumat Temujanji Kad TCA</span>
+    </div>
+
     <div class="form-group">
-        <label>Pilih Tarikh Temujanji KKS</label>
+        <label for="childName">Nama Anak</label>
         <div class="input-wrapper">
-            <i class="fa-solid fa-calendar-day"></i>
-            <input type="date" id="tcaDate" required>
+            <i class="fa-solid fa-child"></i>
+            <input type="text" id="childName" placeholder="Masukkan nama anak" required>
         </div>
     </div>
 
     <div class="form-group">
-        <label>Tujuan Check-up (Umur Anak)</label>
+        <label for="childAge">Rutin Semakan Umur</label>
         <div class="input-wrapper">
-            <i class="fa-solid fa-baby"></i>
+            <i class="fa-solid fa-hourglass-half"></i>
             <select id="childAge">
                 <option value="18m">1 Tahun 6 Bulan (Imunisasi & Saringan)</option>
                 <option value="2y">2 Tahun (Saringan Perkembangan)</option>
                 <option value="3y">3 Tahun (Saringan Perkembangan)</option>
                 <option value="4y">4 Tahun (Saringan Perkembangan)</option>
-                <option value="5y">5 Tahun (Prasekolah / Imunisasi)</option>
+                <option value="5y">5 Tahun (Saringan Prasekolah)</option>
             </select>
         </div>
     </div>
 
-    <button class="btn-submit" onclick="generateReminder()">
-        <i class="fa-solid fa-bell"></i> Set Peringatan Pintar
+    <!-- KALENDAR INPUT (PARENTS MASUKKAN SENDIRI) -->
+    <div class="form-group">
+        <label for="tcaDate">Tarikh Temujanji (Sila rujuk tarikh dari Jururawat)</label>
+        <div class="input-wrapper">
+            <i class="fa-solid fa-calendar-alt"></i>
+            <input type="date" id="tcaDate" required>
+        </div>
+    </div>
+
+    <button class="btn-primary" onclick="generateSmartReminder()">
+        <i class="fa-solid fa-bell"></i> Aktifkan Peringatan Digital
     </button>
 
-    <!-- Result / Visual Calendar -->
-    <div class="result-section" id="resultSection">
+    <!-- INTERAKTIF KALENDAR VISUAL & BUTANG GOOGLE -->
+    <div class="calendar-result" id="calendarResult">
+        <div class="section-title" style="margin-bottom: 8px;">
+            <i class="fa-solid fa-calendar-check" style="color: var(--success);"></i>
+            <span>Peringatan Berjaya Diset!</span>
+        </div>
+        
         <div class="mini-calendar">
-            <div class="cal-month" id="calMonth">JANUARI</div>
-            <div class="cal-date" id="calDate">01</div>
-            <div class="cal-day" id="calDay">KHAMIS</div>
+            <div class="cal-month" id="calMonth">-</div>
+            <div class="cal-date" id="calDate">00</div>
+            <div class="cal-day" id="calDay">-</div>
         </div>
 
         <div class="reminder-box">
-            <i class="fa-solid fa-circle-exclamation animate__animated animate__pulse animate__infinite"></i>
+            <i class="fa-solid fa-circle-exclamation"></i>
             <div class="reminder-text">
-                <h4>Jangan Lupa Hadir!</h4>
-                <p id="reminderDesc">Sila bawa Buku Rekod Kesihatan Kanak-kanak ke Klinik Kesihatan pada tarikh yang ditetapkan.</p>
+                <h4>Nota Peringatan Ibu Bapa:</h4>
+                <p id="reminderDesc">Sila hadir ke Klinik Kesihatan pada tarikh di atas.</p>
             </div>
         </div>
-        
-        <p class="footer-note">Sistem Peringatan Pintar Klinik Kesihatan</p>
+
+        <!-- BUTANG GOOGLE CALENDAR AUTOMATIK -->
+        <a id="googleCalBtn" class="btn-google" target="_blank">
+            <i class="fa-brands fa-google"></i> Simpan ke Google Calendar
+        </a>
+    </div>
+
+    <!-- App Footer -->
+    <div class="app-footer">
+        <p>© 2026 PICTORA Innovation Project. All Rights Reserved.</p>
+        <p style="font-size: 0.7rem; margin-top: 4px; color: #CBD5E0;">Klinik Kesihatan Child Attendance Initiative</p>
     </div>
 </div>
 
 <script>
-    function generateReminder() {
+    function generateSmartReminder() {
+        const name = document.getElementById('childName').value.trim();
         const dateInput = document.getElementById('tcaDate').value;
         const ageSelect = document.getElementById('childAge');
         const ageText = ageSelect.options[ageSelect.selectedIndex].text;
         
+        if (!name) {
+            alert('Sila masukkan nama anak terlebih dahulu ya!');
+            return;
+        }
         if (!dateInput) {
-            alert('Sila pilih tarikh temujanji terlebih dahulu ya!');
+            alert('Sila pilih tarikh temujanji mengikut kad TCA anak anda.');
             return;
         }
 
-        // Tukar format tarikh untuk dipaparkan pada kalendar visual
+        // Proses tarikh input daripada parents
         const dateObj = new Date(dateInput);
-        
-        const months = [
-            "Januari", "Februari", "Mac", "April", "Mei", "Jun", 
-            "Julai", "Ogos", "September", "Oktober", "November", "Disember"
-        ];
-        
-        const days = [
-            "Ahad", "Isnin", "Selasa", "Rabu", "Khamis", "Jumaat", "Sabtu"
-        ];
+        const months = ["Januari", "Februari", "Mac", "April", "Mei", "Jun", "Julai", "Ogos", "September", "Oktober", "November", "Disember"];
+        const days = ["Ahad", "Isnin", "Selasa", "Rabu", "Khamis", "Jumaat", "Sabtu"];
 
-        // Masukkan data ke dalam element kalendar visual
+        // Update skrin kalendar visual
         document.getElementById('calMonth').innerText = months[dateObj.getMonth()];
         document.getElementById('calDate').innerText = String(dateObj.getDate()).padStart(2, '0');
         document.getElementById('calDay').innerText = days[dateObj.getDay()];
 
-        // Tukar teks peringatan mengikut umur yang dipilih
-        const reminderDesc = document.getElementById('reminderDesc');
-        reminderDesc.innerHTML = `Temujanji anak anda untuk <strong>${ageText}</strong> telah disimpan secara digital. Sila ambil gambar (screenshot) halaman ini atau set alarm telefon anda pada tarikh ini!`;
+        // Update teks deskripsi peringatan
+        document.getElementById('reminderDesc').innerHTML = `Temujanji <strong>${name}</strong> untuk <strong>${ageText}</strong> telah direkod. Sila klik butang di bawah untuk masukkan terus ke dalam kalendar telefon anda dengan sistem alarm automatik!`;
 
-        // Paparkan bahagian keputusan
-        document.getElementById('resultSection').style.display = 'block';
+        // GENERATE LINK GOOGLE CALENDAR DENGAN PUSH NOTIFICATION TERATUR
+        // Set temujanji sepanjang hari (All-day event)
+        const year = dateObj.getFullYear();
+        const monthStr = String(dateObj.getMonth() + 1).padStart(2, '0');
+        const dayStr = String(dateObj.getDate()).padStart(2, '0');
         
-        // Auto scroll ke bawah sedikit untuk pengguna phone
+        // Format tarikh All-day untuk Google: YYYYMMDD/YYYYMMDD (mula hingga tamat hari esoknya)
+        const nextDateObj = new Date(dateObj);
+        nextDateObj.setDate(nextDateObj.getDate() + 1);
+        const nextYear = nextDateObj.getFullYear();
+        const nextMonthStr = String(nextDateObj.getMonth() + 1).padStart(2, '0');
+        const nextDayStr = String(nextDateObj.getDate()).padStart(2, '0');
+        
+        const datesParam = `${year}${monthStr}${dayStr}/${nextYear}${nextMonthStr}${nextDayStr}`;
+
+        const title = encodeURIComponent(`Temujanji KKIA PICTOMATE: ${name}`);
+        const details = encodeURIComponent(`Sila bawa Buku Rekod Kesihatan Kanak-kanak untuk pemeriksaan rutin: ${ageText}.\n\nDijana automatik oleh Sistem Ekosistem PICTOMATE.`);
+        
+        // Peringatan: Seminggu sebelum (10080 minit), Sehari sebelum (1440 minit), 2 Jam sebelum (120 minit)
+        const gCalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${datesParam}&details=${details}&remind=10080&remind=1440&remind=120`;
+
+        // Masukkan link ke butang Google
+        const googleBtn = document.getElementById('googleCalBtn');
+        googleBtn.href = gCalUrl;
+
+        // Tunjukkan kad kalendar interaktif
+        document.getElementById('calendarResult').style.display = 'block';
+        
+        // Auto-scroll lembut ke bawah
         window.scrollTo({
             top: document.body.scrollHeight,
             behavior: 'smooth'
